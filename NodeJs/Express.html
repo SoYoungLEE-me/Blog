@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Express로 웹 서버 구축하기 | Soyoung&#39;s TIL</title>
+    <meta name="generator" content="VuePress 1.9.10">
+    <link rel="icon" href="/blog/blog/favicon.ico">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    
+    <link rel="preload" href="/blog/assets/css/0.styles.669591cb.css" as="style"><link rel="preload" href="/blog/assets/js/app.3b743462.js" as="script"><link rel="preload" href="/blog/assets/js/9.b9cdecca.js" as="script"><link rel="preload" href="/blog/assets/js/1.3e360788.js" as="script"><link rel="preload" href="/blog/assets/js/26.a6d9e885.js" as="script"><link rel="prefetch" href="/blog/assets/js/10.75c6696d.js"><link rel="prefetch" href="/blog/assets/js/11.41cbb918.js"><link rel="prefetch" href="/blog/assets/js/12.7444f333.js"><link rel="prefetch" href="/blog/assets/js/13.f40371c5.js"><link rel="prefetch" href="/blog/assets/js/14.b74e026c.js"><link rel="prefetch" href="/blog/assets/js/15.903a40a4.js"><link rel="prefetch" href="/blog/assets/js/16.df1dcce8.js"><link rel="prefetch" href="/blog/assets/js/17.6b7fe6be.js"><link rel="prefetch" href="/blog/assets/js/18.84b4589d.js"><link rel="prefetch" href="/blog/assets/js/19.540cb19e.js"><link rel="prefetch" href="/blog/assets/js/2.a45f7150.js"><link rel="prefetch" href="/blog/assets/js/20.b75832a7.js"><link rel="prefetch" href="/blog/assets/js/21.5eab9373.js"><link rel="prefetch" href="/blog/assets/js/22.d55c44f0.js"><link rel="prefetch" href="/blog/assets/js/23.41708671.js"><link rel="prefetch" href="/blog/assets/js/24.e459baa2.js"><link rel="prefetch" href="/blog/assets/js/25.5b5b626a.js"><link rel="prefetch" href="/blog/assets/js/27.2388d4dd.js"><link rel="prefetch" href="/blog/assets/js/28.62a25ef7.js"><link rel="prefetch" href="/blog/assets/js/3.000cd045.js"><link rel="prefetch" href="/blog/assets/js/4.29f1a167.js"><link rel="prefetch" href="/blog/assets/js/5.743486a8.js"><link rel="prefetch" href="/blog/assets/js/6.42440d5b.js"><link rel="prefetch" href="/blog/assets/js/vendors~docsearch.0b8afceb.js">
+    <link rel="stylesheet" href="/blog/assets/css/0.styles.669591cb.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container min-h-screen bg-white"><header class="navbar z-50 border-b bg-white"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/blog/" class="home-link router-link-active"><img src="/blog/images/logo.png" alt="Soyoung's TIL" class="logo"> <span class="site-name can-hide">Soyoung's TIL</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="https://github.com/SoYoungLEE-me" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="https://github.com/SoYoungLEE-me" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>NodeJs</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/blog/NodeJs/bcrypt.html" class="sidebar-link">bcrypt로 비밀번호 암호화하기</a></li><li><a href="/blog/NodeJs/Express.html" aria-current="page" class="active sidebar-link">Express로 웹 서버 구축하기</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/blog/NodeJs/Express.html#express란" class="sidebar-link">Express란?</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/blog/NodeJs/Express.html#express를-사용하는-이유" class="sidebar-link">Express를 사용하는 이유</a></li></ul></li><li class="sidebar-sub-header"><a href="/blog/NodeJs/Express.html#✅-설치" class="sidebar-link">✅ 설치</a></li><li class="sidebar-sub-header"><a href="/blog/NodeJs/Express.html#✅-express-기본-사용-예제" class="sidebar-link">✅ Express 기본 사용 예제</a></li><li class="sidebar-sub-header"><a href="/blog/NodeJs/Express.html#express-미들웨어-middleware" class="sidebar-link">Express 미들웨어(Middleware)</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/blog/NodeJs/Express.html#미들웨어란" class="sidebar-link">미들웨어란?</a></li></ul></li><li class="sidebar-sub-header"><a href="/blog/NodeJs/Express.html#✅-express-요청-흐름" class="sidebar-link">✅ Express 요청 흐름</a></li><li class="sidebar-sub-header"><a href="/blog/NodeJs/Express.html#✅미들웨어-예제-코드" class="sidebar-link">✅미들웨어 예제 코드</a></li></ul></li></ul></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>MongoDB</span> <span class="arrow right"></span></p> <!----></section></li></ul> </aside> <main class="page pt-14 md:pl-64 transition-all duration-300"><div class="max-w-3xl mx-auto px-6 py-6 md:py-10"><header class="mb-1"><div class="text-orange-500 font-bold text-xs uppercase tracking-widest mb-3">
+    NodeJs
+  </div> <h1 class="text-4xl md:text-5xl font-black text-slate-900 leading-tight mb-6 tracking-tight">
+    Express로 웹 서버 구축하기
+  </h1> <div class="flex flex-wrap items-center gap-4 text-slate-500 text-sm border-b border-slate-100 pb-8"><div class="flex items-center gap-2"><span class="opacity-60">Posted on</span> <time class="font-medium text-slate-800">2026년 2월 2일</time></div> <span class="hidden md:block w-px h-3 bg-slate-300"></span> <div class="flex flex-wrap gap-2"><span class="bg-orange-50 text-orange-500 px-2.5 py-1 rounded-md font-semibold text-xs">
+        #Nodejs
+      </span><span class="bg-orange-50 text-orange-500 px-2.5 py-1 rounded-md font-semibold text-xs">
+        #Express
+      </span><span class="bg-orange-50 text-orange-500 px-2.5 py-1 rounded-md font-semibold text-xs">
+        #Backend
+      </span><span class="bg-orange-50 text-orange-500 px-2.5 py-1 rounded-md font-semibold text-xs">
+        #Middleware
+      </span></div></div></header> <article class="theme-default-content"><div class="content__default"><h2 id="express란"><a href="#express란" class="header-anchor">#</a> Express란?</h2> <p>Express는 Node.js로 <strong>웹 서버를 쉽게 만들 수 있게 도와주는 프레임워크</strong>이다.</p> <p>Node.js만으로도 서버를 만들 수 있지만,
+요청 처리, URL 분기(라우팅) 같은 작업을 직접 구현해야 해서 번거롭다.
+Express는 이런 작업을 미리 정리해둔 도구를 제공해
+서버 코드를 훨씬 간단하게 작성할 수 있게 해준다.</p> <h3 id="express를-사용하는-이유"><a href="#express를-사용하는-이유" class="header-anchor">#</a> Express를 사용하는 이유</h3> <ul><li>라우팅이 간단함</li> <li>미들웨어 구조로 확장성 높음</li> <li>REST API 서버 구성에 적합</li> <li>Mongoose, 인증, 로깅 등과 쉽게 결합 가능</li></ul> <br> <h2 id="✅-설치"><a href="#✅-설치" class="header-anchor">#</a> ✅ 설치</h2> <h4 id="node-js-프로젝트-초기화"><a href="#node-js-프로젝트-초기화" class="header-anchor">#</a> Node.js 프로젝트 초기화</h4> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">npm</span> init <span class="token parameter variable">-y</span>
+</code></pre></div><h4 id="express-설치"><a href="#express-설치" class="header-anchor">#</a> Express 설치</h4> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">npm</span> <span class="token function">install</span> express
+</code></pre></div><br> <h2 id="✅-express-기본-사용-예제"><a href="#✅-express-기본-사용-예제" class="header-anchor">#</a> ✅ Express 기본 사용 예제</h2> <p>아래 예제는 Express로 간단한 웹 서버를 만들고, 두 개의 GET 요청을 처리하는 기본 구조이다.</p> <div class="language-js extra-class"><pre class="language-js"><code><span class="token comment">//Express 불러오기 및 서버 객체 생성</span>
+<span class="token keyword">const</span> express <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&quot;express&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> app <span class="token operator">=</span> <span class="token function">express</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// &quot;/&quot; 경로로 GET 요청이 들어왔을 때 실행</span>
+app<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">&quot;/&quot;</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">req<span class="token punctuation">,</span> res</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  res<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span><span class="token string">&quot;hello my world&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// &quot;/about&quot; 경로로 GET 요청이 들어왔을 때 실행</span>
+app<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">&quot;/about&quot;</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">req<span class="token punctuation">,</span> res</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  res<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span><span class="token string">&quot;This is AboutPage&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 5000번 포트에서 서버 실행</span>
+app<span class="token punctuation">.</span><span class="token function">listen</span><span class="token punctuation">(</span><span class="token number">5000</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&quot;server is on 5000&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><br> <h4 id="라우팅-routing"><a href="#라우팅-routing" class="header-anchor">#</a> 라우팅(Routing)</h4> <div class="language-js extra-class"><pre class="language-js"><code>app<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">&quot;/&quot;</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">req<span class="token punctuation">,</span> res</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  res<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span><span class="token string">&quot;hello my world&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><ul><li>클라이언트가 특정 URL로 요청하면 실행되는 함수 정의</li> <li>req : 요청(request) 객체</li> <li>res : 응답(response) 객체</li> <li>res.send()는 클라이언트에게 응답을 보내는 역할</li></ul> <br> <h4 id="서버-실행"><a href="#서버-실행" class="header-anchor">#</a> 서버 실행</h4> <div class="language-js extra-class"><pre class="language-js"><code>app<span class="token punctuation">.</span><span class="token function">listen</span><span class="token punctuation">(</span><span class="token number">5000</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&quot;server is on 5000&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><ul><li>지정한 포트 번호에서 서버를 실행</li> <li>브라우저에서 http://localhost:5000으로 접근 가능</li></ul> <p><br><br></p> <h2 id="express-미들웨어-middleware"><a href="#express-미들웨어-middleware" class="header-anchor">#</a> Express 미들웨어(Middleware)</h2> <h3 id="미들웨어란"><a href="#미들웨어란" class="header-anchor">#</a> 미들웨어란?</h3> <p>Express에서 <strong>미들웨어(Middleware)</strong> 는 <strong>요청(Request)이 들어온 뒤, 응답(Response)을 보내기 전에 실행되는 함수</strong>이다.</p> <p>요청 처리 과정 중간에 끼어들어 요청을 검사하거나, 필요한 작업을 수행한 뒤 다음 단계로 넘길지 말지를 결정한다.</p> <br> <h2 id="✅-express-요청-흐름"><a href="#✅-express-요청-흐름" class="header-anchor">#</a> ✅ Express 요청 흐름</h2> <p>Express에서 하나의 요청은 다음 순서로 처리된다.</p> <div class="language- extra-class"><pre class="language-text"><code>Request
+   ↓
+Middleware
+   ↓
+Route Handler
+   ↓
+Response
+</code></pre></div><ul><li>미들웨어는 <strong>라우트 핸들러보다 먼저 실행</strong></li> <li>여러 개의 미들웨어를 순서대로 실행할 수 있음</li></ul> <br>
+미들웨어는 항상 다음 형태를 가진 함수이다.
+<ul><li>req : 요청 객체</li> <li>res : 응답 객체</li> <li>next : 다음 단계로 넘기기 위한 함수
+<ul><li>next() 호출 → 다음 미들웨어 또는 라우트 핸들러 실행</li> <li>next() 미호출 → 요청 흐름이 여기서 멈춤</li></ul></li></ul> <br> <h2 id="✅미들웨어-예제-코드"><a href="#✅미들웨어-예제-코드" class="header-anchor">#</a> ✅미들웨어 예제 코드</h2> <div class="language-js extra-class"><pre class="language-js"><code><span class="token keyword">const</span> express <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">&quot;express&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> app <span class="token operator">=</span> <span class="token function">express</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 미들웨어 함수</span>
+<span class="token keyword">const</span> <span class="token function-variable function">checkAuth</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">req<span class="token punctuation">,</span> res<span class="token punctuation">,</span> next</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&quot;she has admin permission&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 다음 단계로 이동</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 라우트 핸들러</span>
+<span class="token keyword">const</span> <span class="token function-variable function">getUser</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">req<span class="token punctuation">,</span> res</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  res<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span><span class="token string">&quot;here is user info&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token comment">// /users 요청 시</span>
+<span class="token comment">// checkAuth → getUser 순서로 실행됨</span>
+app<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">&quot;/users&quot;</span><span class="token punctuation">,</span> checkAuth<span class="token punctuation">,</span> getUser<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+app<span class="token punctuation">.</span><span class="token function">listen</span><span class="token punctuation">(</span><span class="token number">5000</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&quot;server is on 5000&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><p>next()가 없으면 브라우저에서는 무한 로딩 상태가 되겠지..</p> <br> <p>미들웨어는 여러 라우트에서 공통으로 처리해야 하는 작업을 분리하기 위해 사용한다.
+예를 들어 로그인 여부 확인, 권한 검사 (admin 여부 등), 요청 로그 출력, 요청 데이터 파싱 등등..</p></div></article> <footer class="page-edit mt-20 border-t pt-8"><!----> <!----></footer> <div class="page-nav mt-8"><p class="inner"><span class="prev">
+      ←
+      <a href="/blog/NodeJs/bcrypt.html" class="prev">
+        bcrypt로 비밀번호 암호화하기
+      </a></span> <span class="next"><a href="/blog/MongoDB/Mongoose.html">
+        Mongoose로 MongoDB 구조화하기
+      </a>
+      →
+    </span></p></div></div></main></div><div class="global-ui"></div></div>
+    <script src="/blog/assets/js/app.3b743462.js" defer></script><script src="/blog/assets/js/9.b9cdecca.js" defer></script><script src="/blog/assets/js/1.3e360788.js" defer></script><script src="/blog/assets/js/26.a6d9e885.js" defer></script>
+  </body>
+</html>
