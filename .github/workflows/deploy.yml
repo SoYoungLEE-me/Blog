@@ -20,5 +20,5 @@ jobs:
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-         folder: docs/.vuepress/dist # 빌드된 결과물이 저장되는 폴더
-          branch: gh-pages # 배포된 파일이 담길 브랜치
+          folder: docs/.vuepress/dist
+          branch: gh-pages
