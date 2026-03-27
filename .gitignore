@@ -22,6 +22,7 @@ Thumbs.db
 dist/
 build/
 .vuepress/dist/
+docs/.vuepress/dist/
 
 # IDE / Editor folders
 .vscode/
