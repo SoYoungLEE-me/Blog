@@ -1,7 +1,7 @@
 const path = require("path");
 
 module.exports = {
-  base: "/blog/",
+  base: "/Blog/",
   title: "Soyoung's TIL",
   head: headConfig(),
   themeConfig: {
@@ -24,7 +24,7 @@ function navConfigs() {
 
 function headConfig() {
   return [
-    ["link", { rel: "icon", href: "/blog/favicon.ico" }],
+    ["link", { rel: "icon", href: "/favicon.ico" }],
     [
       "meta",
       { name: "viewport", content: "width=device-width,initial-scale=1" },
