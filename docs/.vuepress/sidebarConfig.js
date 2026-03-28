@@ -25,6 +25,7 @@ module.exports = {
         "/React/zustand.md",
         "/React/lazy-loading.md",
         "/React/bundling.md",
+        "/React/react-state-management.md",
       ],
     },
     {
@@ -38,9 +39,19 @@ module.exports = {
       children: [""],
     },
     {
+      title: "DevOps",
+      collapsable: true,
+      children: ["/DevOps/eslint-husky-lint-staged.md"],
+    },
+    {
       title: "Git",
       collapsable: true,
       children: [""],
+    },
+    {
+      title: "References",
+      collapsable: true,
+      children: ["/References/muddy-web-ep1-production-release.md"],
     },
     {
       title: "etc",
