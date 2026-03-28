@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>ESLint + Husky + lint-staged 설정 | Soyoung&#39;s TIL</title>
+    <meta name="generator" content="VuePress 1.9.10">
+    <link rel="icon" href="/Blog/favicon.ico">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    
+    <link rel="preload" href="/Blog/assets/css/0.styles.aa0c5a01.css" as="style"><link rel="preload" href="/Blog/assets/js/app.2cd43657.js" as="script"><link rel="preload" href="/Blog/assets/js/9.b9cdecca.js" as="script"><link rel="preload" href="/Blog/assets/js/1.3e360788.js" as="script"><link rel="preload" href="/Blog/assets/js/25.f77500ce.js" as="script"><link rel="prefetch" href="/Blog/assets/js/10.75c6696d.js"><link rel="prefetch" href="/Blog/assets/js/11.41cbb918.js"><link rel="prefetch" href="/Blog/assets/js/12.7444f333.js"><link rel="prefetch" href="/Blog/assets/js/13.f40371c5.js"><link rel="prefetch" href="/Blog/assets/js/14.b74e026c.js"><link rel="prefetch" href="/Blog/assets/js/15.903a40a4.js"><link rel="prefetch" href="/Blog/assets/js/16.df1dcce8.js"><link rel="prefetch" href="/Blog/assets/js/17.6b7fe6be.js"><link rel="prefetch" href="/Blog/assets/js/18.84b4589d.js"><link rel="prefetch" href="/Blog/assets/js/19.540cb19e.js"><link rel="prefetch" href="/Blog/assets/js/2.a45f7150.js"><link rel="prefetch" href="/Blog/assets/js/20.b75832a7.js"><link rel="prefetch" href="/Blog/assets/js/21.5eab9373.js"><link rel="prefetch" href="/Blog/assets/js/22.d55c44f0.js"><link rel="prefetch" href="/Blog/assets/js/23.41708671.js"><link rel="prefetch" href="/Blog/assets/js/24.e459baa2.js"><link rel="prefetch" href="/Blog/assets/js/26.7de93ba1.js"><link rel="prefetch" href="/Blog/assets/js/27.9193f9bd.js"><link rel="prefetch" href="/Blog/assets/js/28.29b971b7.js"><link rel="prefetch" href="/Blog/assets/js/29.91f1cbbe.js"><link rel="prefetch" href="/Blog/assets/js/3.000cd045.js"><link rel="prefetch" href="/Blog/assets/js/30.a9ec04a1.js"><link rel="prefetch" href="/Blog/assets/js/31.eb93c32e.js"><link rel="prefetch" href="/Blog/assets/js/32.c1ae5ecc.js"><link rel="prefetch" href="/Blog/assets/js/33.1aa67b47.js"><link rel="prefetch" href="/Blog/assets/js/34.418c33d9.js"><link rel="prefetch" href="/Blog/assets/js/35.01ef2390.js"><link rel="prefetch" href="/Blog/assets/js/36.b6af6578.js"><link rel="prefetch" href="/Blog/assets/js/37.c5a5377e.js"><link rel="prefetch" href="/Blog/assets/js/38.aa0c76d2.js"><link rel="prefetch" href="/Blog/assets/js/39.31e75cdb.js"><link rel="prefetch" href="/Blog/assets/js/4.29f1a167.js"><link rel="prefetch" href="/Blog/assets/js/40.02c65f6c.js"><link rel="prefetch" href="/Blog/assets/js/41.f738dcea.js"><link rel="prefetch" href="/Blog/assets/js/42.48746415.js"><link rel="prefetch" href="/Blog/assets/js/43.a7052e8e.js"><link rel="prefetch" href="/Blog/assets/js/5.743486a8.js"><link rel="prefetch" href="/Blog/assets/js/6.42440d5b.js"><link rel="prefetch" href="/Blog/assets/js/vendors~docsearch.0b8afceb.js">
+    <link rel="stylesheet" href="/Blog/assets/css/0.styles.aa0c5a01.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container min-h-screen bg-white"><header class="navbar z-50 border-b bg-white"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/Blog/" class="home-link router-link-active"><img src="/Blog/images/logo.png" alt="Soyoung's TIL" class="logo"> <span class="site-name can-hide">Soyoung's TIL</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="https://github.com/SoYoungLEE-me" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="https://github.com/SoYoungLEE-me" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>NodeJs</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>MongoDB</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>React</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Vue</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>TypeScript</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>DevOps</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/Blog/DevOps/eslint-husky-lint-staged.html" aria-current="page" class="active sidebar-link">ESLint + Husky + lint-staged 설정</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/Blog/DevOps/eslint-husky-lint-staged.html#전체-구조" class="sidebar-link">전체 구조</a></li><li class="sidebar-sub-header"><a href="/Blog/DevOps/eslint-husky-lint-staged.html#✅-1-eslint-코드-검사-도구" class="sidebar-link">✅ 1. ESLint — 코드 검사 도구</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/Blog/DevOps/eslint-husky-lint-staged.html#설치" class="sidebar-link">설치</a></li><li class="sidebar-sub-header"><a href="/Blog/DevOps/eslint-husky-lint-staged.html#설정-파일-eslint-config-js-또는-eslintrc-json" class="sidebar-link">설정 파일 (eslint.config.js 또는 .eslintrc.json)</a></li><li class="sidebar-sub-header"><a href="/Blog/DevOps/eslint-husky-lint-staged.html#vscode-연동" class="sidebar-link">VSCode 연동</a></li></ul></li><li class="sidebar-sub-header"><a href="/Blog/DevOps/eslint-husky-lint-staged.html#✅-2-husky-git-hook-실행-도구" class="sidebar-link">✅ 2. Husky — Git Hook 실행 도구</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/Blog/DevOps/eslint-husky-lint-staged.html#설치-및-초기화" class="sidebar-link">설치 및 초기화</a></li><li class="sidebar-sub-header"><a href="/Blog/DevOps/eslint-husky-lint-staged.html#pre-commit-hook-설정" class="sidebar-link">pre-commit hook 설정</a></li><li class="sidebar-sub-header"><a href="/Blog/DevOps/eslint-husky-lint-staged.html#pre-push-hook-설정-선택" class="sidebar-link">pre-push hook 설정 (선택)</a></li></ul></li><li class="sidebar-sub-header"><a href="/Blog/DevOps/eslint-husky-lint-staged.html#✅-3-lint-staged-변경-파일만-검사" class="sidebar-link">✅ 3. lint-staged — 변경 파일만 검사</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/Blog/DevOps/eslint-husky-lint-staged.html#설치-2" class="sidebar-link">설치</a></li><li class="sidebar-sub-header"><a href="/Blog/DevOps/eslint-husky-lint-staged.html#설정-package-json" class="sidebar-link">설정 (package.json)</a></li></ul></li><li class="sidebar-sub-header"><a href="/Blog/DevOps/eslint-husky-lint-staged.html#✅-4-전체-동작-흐름-예시" class="sidebar-link">✅ 4. 전체 동작 흐름 예시</a></li></ul></li></ul></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Git</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>References</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>etc</span> <span class="arrow right"></span></p> <!----></section></li></ul> </aside> <main class="page pt-14 md:pl-64 transition-all duration-300"><div class="max-w-3xl mx-auto px-6 py-6 md:py-10"><header class="mb-1"><div class="text-orange-500 font-bold text-xs uppercase tracking-widest mb-3">
+    DevOps
+  </div> <h1 class="text-4xl md:text-5xl font-black text-slate-900 leading-tight mb-6 tracking-tight">
+    ESLint + Husky + lint-staged 설정
+  </h1> <div class="flex flex-wrap items-center gap-4 text-slate-500 text-sm border-b border-slate-100 pb-8"><div class="flex items-center gap-2"><span class="opacity-60">Posted on</span> <time class="font-medium text-slate-800">2026년 3월 27일</time></div> <span class="hidden md:block w-px h-3 bg-slate-300"></span> <div class="flex flex-wrap gap-2"><span class="bg-orange-50 text-orange-500 px-2.5 py-1 rounded-md font-semibold text-xs">
+        #DX
+      </span><span class="bg-orange-50 text-orange-500 px-2.5 py-1 rounded-md font-semibold text-xs">
+        #ESLint
+      </span><span class="bg-orange-50 text-orange-500 px-2.5 py-1 rounded-md font-semibold text-xs">
+        #Husky
+      </span><span class="bg-orange-50 text-orange-500 px-2.5 py-1 rounded-md font-semibold text-xs">
+        #lint-staged
+      </span><span class="bg-orange-50 text-orange-500 px-2.5 py-1 rounded-md font-semibold text-xs">
+        #Git
+      </span></div></div></header> <article class="theme-default-content"><div class="content__default"><h2 id="전체-구조"><a href="#전체-구조" class="header-anchor">#</a> 전체 구조</h2> <p>코드 품질을 자동으로 유지하기 위한 세 가지 도구의 조합이다.</p> <table><thead><tr><th>도구</th> <th>역할</th></tr></thead> <tbody><tr><td><strong>ESLint</strong></td> <td>코드 문법/스타일 오류를 검사하고 알려줌</td></tr> <tr><td><strong>Husky</strong></td> <td>Git 이벤트(커밋, 푸시) 시점에 명령어를 자동 실행</td></tr> <tr><td><strong>lint-staged</strong></td> <td>커밋 대상 파일(staged)만 골라서 ESLint 실행</td></tr></tbody></table> <div class="language- extra-class"><pre class="language-text"><code>코드 작성
+    ↓
+git add (staged 상태)
+    ↓
+git commit 시도
+    ↓
+Husky가 pre-commit hook 실행
+    ↓
+lint-staged가 staged 파일만 추려서 ESLint 실행
+    ↓
+❌ 오류 있으면 → 커밋 차단, 오류 출력
+✅ 오류 없으면 → 커밋 완료
+</code></pre></div><br> <h2 id="✅-1-eslint-코드-검사-도구"><a href="#✅-1-eslint-코드-검사-도구" class="header-anchor">#</a> ✅ 1. ESLint — 코드 검사 도구</h2> <p>JavaScript/React 코드에서 <strong>문법 오류, 잠재적 버그, 스타일 규칙 위반</strong>을 잡아준다.
+VSCode에 ESLint 익스텐션을 설치하면 저장할 때마다 실시간으로 오류를 표시해준다.</p> <h3 id="설치"><a href="#설치" class="header-anchor">#</a> 설치</h3> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">npm</span> <span class="token function">install</span> --save-dev eslint
+npx eslint <span class="token parameter variable">--init</span>  <span class="token comment"># 설정 파일 자동 생성</span>
+</code></pre></div><h3 id="설정-파일-eslint-config-js-또는-eslintrc-json"><a href="#설정-파일-eslint-config-js-또는-eslintrc-json" class="header-anchor">#</a> 설정 파일 (<code>eslint.config.js</code> 또는 <code>.eslintrc.json</code>)</h3> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;env&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;browser&quot;</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;es2021&quot;</span><span class="token operator">:</span> <span class="token boolean">true</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;extends&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">&quot;eslint:recommended&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;plugin:react/recommended&quot;</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;rules&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;no-unused-vars&quot;</span><span class="token operator">:</span> <span class="token string">&quot;warn&quot;</span><span class="token punctuation">,</span> <span class="token comment">// 사용하지 않는 변수 경고</span>
+    <span class="token property">&quot;no-console&quot;</span><span class="token operator">:</span> <span class="token string">&quot;warn&quot;</span><span class="token punctuation">,</span> <span class="token comment">// console.log 경고</span>
+    <span class="token property">&quot;react/prop-types&quot;</span><span class="token operator">:</span> <span class="token string">&quot;off&quot;</span> <span class="token comment">// prop-types 검사 비활성화</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="vscode-연동"><a href="#vscode-연동" class="header-anchor">#</a> VSCode 연동</h3> <p>VSCode에 <strong>ESLint 익스텐션</strong>을 설치하고, <code>settings.json</code>에 아래를 추가하면
+파일 저장 시 자동으로 ESLint 규칙에 맞게 코드를 수정해준다.</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token comment">// .vscode/settings.json</span>
+<span class="token punctuation">{</span>
+  <span class="token property">&quot;editor.codeActionsOnSave&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;source.fixAll.eslint&quot;</span><span class="token operator">:</span> <span class="token boolean">true</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><blockquote><p>저장할 때마다 자동 수정되므로 코드 스타일을 일관되게 유지할 수 있다.</p></blockquote> <br> <h2 id="✅-2-husky-git-hook-실행-도구"><a href="#✅-2-husky-git-hook-실행-도구" class="header-anchor">#</a> ✅ 2. Husky — Git Hook 실행 도구</h2> <p>Git 이벤트(<code>commit</code>, <code>push</code> 등) 발생 시 <strong>자동으로 특정 명령어를 실행</strong>시켜주는 도구다.
+ESLint 단독으로는 검사를 강제할 수 없지만, Husky와 함께 쓰면
+<strong>오류가 있는 코드는 아예 커밋이 안 되도록</strong> 막을 수 있다.</p> <h3 id="설치-및-초기화"><a href="#설치-및-초기화" class="header-anchor">#</a> 설치 및 초기화</h3> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">npm</span> <span class="token function">install</span> --save-dev husky
+npx husky init
+</code></pre></div><h3 id="pre-commit-hook-설정"><a href="#pre-commit-hook-설정" class="header-anchor">#</a> pre-commit hook 설정</h3> <p>커밋 직전에 실행할 명령어를 등록한다.</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># .husky/pre-commit</span>
+npx lint-staged
+</code></pre></div><h3 id="pre-push-hook-설정-선택"><a href="#pre-push-hook-설정-선택" class="header-anchor">#</a> pre-push hook 설정 (선택)</h3> <p>푸시 직전에 전체 테스트를 실행하고 싶을 때 사용한다.</p> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># .husky/pre-push</span>
+<span class="token function">npm</span> run <span class="token builtin class-name">test</span>
+</code></pre></div><blockquote><p><code>pre-commit</code> → 커밋 직전 실행
+<code>pre-push</code> → 푸시 직전 실행</p></blockquote> <br> <h2 id="✅-3-lint-staged-변경-파일만-검사"><a href="#✅-3-lint-staged-변경-파일만-검사" class="header-anchor">#</a> ✅ 3. lint-staged — 변경 파일만 검사</h2> <p><code>git add</code>로 staged 상태인 파일, 즉 <strong>이번 커밋에 포함될 파일만</strong> 골라서 ESLint를 실행한다.
+전체 파일을 검사하면 느리기 때문에 변경된 파일만 검사해 속도를 최적화한다.</p> <h3 id="설치-2"><a href="#설치-2" class="header-anchor">#</a> 설치</h3> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token function">npm</span> <span class="token function">install</span> --save-dev lint-staged
+</code></pre></div><h3 id="설정-package-json"><a href="#설정-package-json" class="header-anchor">#</a> 설정 (<code>package.json</code>)</h3> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;lint-staged&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;*.{js,jsx,ts,tsx}&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token string">&quot;eslint --fix&quot;</span><span class="token punctuation">,</span> <span class="token comment">// 자동 수정 후</span>
+      <span class="token string">&quot;git add&quot;</span> <span class="token comment">// 수정된 파일 다시 staged에 추가</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><br> <h2 id="✅-4-전체-동작-흐름-예시"><a href="#✅-4-전체-동작-흐름-예시" class="header-anchor">#</a> ✅ 4. 전체 동작 흐름 예시</h2> <div class="language-bash extra-class"><pre class="language-bash"><code><span class="token comment"># 1. 코드 작성 후 스테이징</span>
+<span class="token function">git</span> <span class="token function">add</span> src/App.jsx
+
+<span class="token comment"># 2. 커밋 시도</span>
+<span class="token function">git</span> commit <span class="token parameter variable">-m</span> <span class="token string">&quot;feat: 로그인 기능 추가&quot;</span>
+
+<span class="token comment"># 3. Husky가 pre-commit hook 실행</span>
+<span class="token comment"># → lint-staged 실행</span>
+<span class="token comment"># → staged 파일(App.jsx)만 ESLint 검사</span>
+
+<span class="token comment"># 오류가 있을 경우</span>
+✖ eslint --fix:
+  src/App.jsx
+    <span class="token number">5</span>:10  error  <span class="token string">'user'</span> is defined but never used  no-unused-vars
+<span class="token comment"># → 커밋 차단됨</span>
+
+<span class="token comment"># 오류가 없을 경우</span>
+✔ Preparing lint-staged<span class="token punctuation">..</span>.
+✔ Running tasks <span class="token keyword">for</span> staged files<span class="token punctuation">..</span>.
+✔ Applying modifications from tasks<span class="token punctuation">..</span>.
+<span class="token comment"># → 커밋 완료</span>
+</code></pre></div><hr> <br> <p><strong>핵심 요약:</strong></p> <ul><li><strong>ESLint</strong> → 코드 문법/스타일 검사, VSCode 익스텐션으로 실시간 피드백</li> <li><strong>Husky</strong> → 커밋/푸시 시점에 자동으로 명령어 실행</li> <li><strong>lint-staged</strong> → staged 파일만 골라서 ESLint 실행 (속도 최적화)</li> <li>세 가지를 조합하면 <strong>오류가 있는 코드는 커밋 자체가 차단</strong>되어 코드 품질을 강제로 유지할 수 있다.</li></ul></div></article> <footer class="page-edit mt-20 border-t pt-8"><!----> <!----></footer> <div class="page-nav mt-8"><p class="inner"><span class="prev">
+      ←
+      <a href="/Blog/" class="prev router-link-active">
+        /
+      </a></span> <span class="next"><a href="/Blog/" class="router-link-active">
+        /
+      </a>
+      →
+    </span></p></div></div></main></div><div class="global-ui"></div></div>
+    <script src="/Blog/assets/js/app.2cd43657.js" defer></script><script src="/Blog/assets/js/9.b9cdecca.js" defer></script><script src="/Blog/assets/js/1.3e360788.js" defer></script><script src="/Blog/assets/js/25.f77500ce.js" defer></script>
+  </body>
+</html>
