@@ -41,7 +41,10 @@ module.exports = {
     {
       title: "DevOps",
       collapsable: true,
-      children: ["/DevOps/eslint-husky-lint-staged.md"],
+      children: [
+        "/DevOps/eslint-husky-lint-staged.md",
+        "/DevOps/github-actions-ci-cd.md",
+      ],
     },
     {
       title: "Git",

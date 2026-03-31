@@ -19,12 +19,11 @@ source:
 
 > 🎙️ **マディウェブポッドキャスト EP.1 — 事業別プロダクトのリリースについて**
 > CyberAgent 소속 엔지니어들(AbemaTV, WinTicket, N-Organic)이 사업부별 릴리즈 전략과
-> 프론트엔드 운용 방식에 대해 이야기한 팟캐스트를 듣고 기술적으로 배울 만한 내용을 정리한다.
+> 프론트엔드 운용 방식에 대해 이야기한 팟캐스트를 듣고 기술적으로 배울 만한 내용을 정리한다.<br>
 > 🔗 [Spotify에서 듣기](https://open.spotify.com/episode/2p06XyVP9uiY20zfy2aFtc)
 
 <br>
-
----
+<br>
 
 ## ✅ 1. 트렁크 기반 개발 (Trunk-Based Development)
 
