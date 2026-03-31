@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>CI/CD 개념 및 GitHub Actions 정리 | Soyoung&#39;s TIL</title>
+    <meta name="generator" content="VuePress 1.9.10">
+    <link rel="icon" href="/Blog/favicon.ico">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    
+    <link rel="preload" href="/Blog/assets/css/0.styles.aa0c5a01.css" as="style"><link rel="preload" href="/Blog/assets/js/app.5fec811d.js" as="script"><link rel="preload" href="/Blog/assets/js/9.b9cdecca.js" as="script"><link rel="preload" href="/Blog/assets/js/1.3e360788.js" as="script"><link rel="preload" href="/Blog/assets/js/26.b2026a1a.js" as="script"><link rel="prefetch" href="/Blog/assets/js/10.75c6696d.js"><link rel="prefetch" href="/Blog/assets/js/11.41cbb918.js"><link rel="prefetch" href="/Blog/assets/js/12.7444f333.js"><link rel="prefetch" href="/Blog/assets/js/13.f40371c5.js"><link rel="prefetch" href="/Blog/assets/js/14.b74e026c.js"><link rel="prefetch" href="/Blog/assets/js/15.903a40a4.js"><link rel="prefetch" href="/Blog/assets/js/16.df1dcce8.js"><link rel="prefetch" href="/Blog/assets/js/17.6b7fe6be.js"><link rel="prefetch" href="/Blog/assets/js/18.84b4589d.js"><link rel="prefetch" href="/Blog/assets/js/19.540cb19e.js"><link rel="prefetch" href="/Blog/assets/js/2.a45f7150.js"><link rel="prefetch" href="/Blog/assets/js/20.b75832a7.js"><link rel="prefetch" href="/Blog/assets/js/21.5eab9373.js"><link rel="prefetch" href="/Blog/assets/js/22.d55c44f0.js"><link rel="prefetch" href="/Blog/assets/js/23.41708671.js"><link rel="prefetch" href="/Blog/assets/js/24.e459baa2.js"><link rel="prefetch" href="/Blog/assets/js/25.f77500ce.js"><link rel="prefetch" href="/Blog/assets/js/27.acce66bd.js"><link rel="prefetch" href="/Blog/assets/js/28.09d1487f.js"><link rel="prefetch" href="/Blog/assets/js/29.257c649f.js"><link rel="prefetch" href="/Blog/assets/js/3.000cd045.js"><link rel="prefetch" href="/Blog/assets/js/30.9bae4e49.js"><link rel="prefetch" href="/Blog/assets/js/31.81df5053.js"><link rel="prefetch" href="/Blog/assets/js/32.f9f21b0c.js"><link rel="prefetch" href="/Blog/assets/js/33.e49badd7.js"><link rel="prefetch" href="/Blog/assets/js/34.eea6ad39.js"><link rel="prefetch" href="/Blog/assets/js/35.466bedf8.js"><link rel="prefetch" href="/Blog/assets/js/36.990608b7.js"><link rel="prefetch" href="/Blog/assets/js/37.2790713f.js"><link rel="prefetch" href="/Blog/assets/js/38.de5331f7.js"><link rel="prefetch" href="/Blog/assets/js/39.cd29a45d.js"><link rel="prefetch" href="/Blog/assets/js/4.29f1a167.js"><link rel="prefetch" href="/Blog/assets/js/40.21506b2c.js"><link rel="prefetch" href="/Blog/assets/js/41.e1083aeb.js"><link rel="prefetch" href="/Blog/assets/js/42.8948d018.js"><link rel="prefetch" href="/Blog/assets/js/43.50ef5d56.js"><link rel="prefetch" href="/Blog/assets/js/44.8aed963a.js"><link rel="prefetch" href="/Blog/assets/js/5.743486a8.js"><link rel="prefetch" href="/Blog/assets/js/6.42440d5b.js"><link rel="prefetch" href="/Blog/assets/js/vendors~docsearch.0b8afceb.js">
+    <link rel="stylesheet" href="/Blog/assets/css/0.styles.aa0c5a01.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container min-h-screen bg-white"><header class="navbar z-50 border-b bg-white"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/Blog/" class="home-link router-link-active"><img src="/Blog/images/logo.png" alt="Soyoung's TIL" class="logo"> <span class="site-name can-hide">Soyoung's TIL</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="https://github.com/SoYoungLEE-me" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="https://github.com/SoYoungLEE-me" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>NodeJs</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>MongoDB</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>React</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Vue</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>TypeScript</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>DevOps</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/Blog/DevOps/eslint-husky-lint-staged.html" class="sidebar-link">ESLint + Husky + lint-staged 설정</a></li><li><a href="/Blog/DevOps/github-actions-ci-cd.html" aria-current="page" class="active sidebar-link">CI/CD 개념 및 GitHub Actions 정리</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/Blog/DevOps/github-actions-ci-cd.html#ci-cd란" class="sidebar-link">CI/CD란?</a></li><li class="sidebar-sub-header"><a href="/Blog/DevOps/github-actions-ci-cd.html#✅-1-오류를-잡는-단계들" class="sidebar-link">✅ 1. 오류를 잡는 단계들</a></li><li class="sidebar-sub-header"><a href="/Blog/DevOps/github-actions-ci-cd.html#✅-2-github-actions란" class="sidebar-link">✅ 2. GitHub Actions란?</a></li><li class="sidebar-sub-header"><a href="/Blog/DevOps/github-actions-ci-cd.html#✅-3-github-actions-기본-문법" class="sidebar-link">✅ 3. GitHub Actions 기본 문법</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/Blog/DevOps/github-actions-ci-cd.html#주요-키워드-정리" class="sidebar-link">주요 키워드 정리</a></li></ul></li><li class="sidebar-sub-header"><a href="/Blog/DevOps/github-actions-ci-cd.html#✅-4-실제-워크플로우-예시-eslint-빌드-테스트" class="sidebar-link">✅ 4. 실제 워크플로우 예시 — ESLint + 빌드 + 테스트</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/Blog/DevOps/github-actions-ci-cd.html#실행-결과" class="sidebar-link">실행 결과</a></li></ul></li><li class="sidebar-sub-header"><a href="/Blog/DevOps/github-actions-ci-cd.html#✅-5-npm-install-vs-npm-ci" class="sidebar-link">✅ 5. npm install vs npm ci</a></li></ul></li></ul></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Git</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>References</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>etc</span> <span class="arrow right"></span></p> <!----></section></li></ul> </aside> <main class="page pt-14 md:pl-64 transition-all duration-300"><div class="max-w-3xl mx-auto px-6 py-6 md:py-10"><header class="mb-1"><div class="text-orange-500 font-bold text-xs uppercase tracking-widest mb-3">
+    DevOps
+  </div> <h1 class="text-4xl md:text-5xl font-black text-slate-900 leading-tight mb-6 tracking-tight">
+    CI/CD 개념 및 GitHub Actions 정리
+  </h1> <div class="flex flex-wrap items-center gap-4 text-slate-500 text-sm border-b border-slate-100 pb-8"><div class="flex items-center gap-2"><span class="opacity-60">Posted on</span> <time class="font-medium text-slate-800">2026년 3월 30일</time></div> <span class="hidden md:block w-px h-3 bg-slate-300"></span> <div class="flex flex-wrap gap-2"><span class="bg-orange-50 text-orange-500 px-2.5 py-1 rounded-md font-semibold text-xs">
+        #DevOps
+      </span><span class="bg-orange-50 text-orange-500 px-2.5 py-1 rounded-md font-semibold text-xs">
+        #CI/CD
+      </span><span class="bg-orange-50 text-orange-500 px-2.5 py-1 rounded-md font-semibold text-xs">
+        #GitHub Actions
+      </span><span class="bg-orange-50 text-orange-500 px-2.5 py-1 rounded-md font-semibold text-xs">
+        #ESLint
+      </span><span class="bg-orange-50 text-orange-500 px-2.5 py-1 rounded-md font-semibold text-xs">
+        #Husky
+      </span></div></div></header> <article class="theme-default-content"><div class="content__default"><h2 id="ci-cd란"><a href="#ci-cd란" class="header-anchor">#</a> CI/CD란?</h2> <p>개발한 코드를 검사하고 배포하는 과정을 <strong>자동화</strong>하는 방법론이다.</p> <ul><li><strong>CI (Continuous Integration, 지속적 통합)</strong> → 코드를 푸시/PR할 때마다 자동으로 검사</li> <li><strong>CD (Continuous Delivery/Deployment, 지속적 배포)</strong> → 검사를 통과하면 자동으로 배포</li></ul> <br> <h2 id="✅-1-오류를-잡는-단계들"><a href="#✅-1-오류를-잡는-단계들" class="header-anchor">#</a> ✅ 1. 오류를 잡는 단계들</h2> <p>코드를 작성해서 배포되기까지 여러 단계에서 오류를 잡는다.
+<strong>앞 단계에서 잡을수록 수정 비용이 적다.</strong></p> <div class="language- extra-class"><pre class="language-text"><code>✍️ 코드 작성
+    ↓
+💻 VSCode ESLint        → 저장할 때마다 실시간 검사
+    ↓
+📦 git commit
+    ↓
+🐶 Husky + lint-staged  → 커밋 전 자동 검사 (오류 있으면 커밋 차단)
+    ↓
+🚀 git push / PR 오픈
+    ↓
+⚙️ GitHub Actions (CI)  → 공통 환경에서 빌드 + 테스트 자동 실행
+    ↓
+✅ 통과 → 머지 → 배포 (CD)
+❌ 실패 → 머지 차단 → 로컬에서 수정
+    ↓
+🔍 Sentry               → 배포 후에도 예상치 못한 오류 실시간 감지
+</code></pre></div><br> <p>각 단계의 역할을 정리하면:</p> <table><thead><tr><th>단계</th> <th>도구</th> <th>시점</th> <th>역할</th></tr></thead> <tbody><tr><td>1단계</td> <td>VSCode ESLint</td> <td>코드 작성 중</td> <td>실시간 문법/스타일 오류 표시</td></tr> <tr><td>2단계</td> <td>Husky + lint-staged</td> <td>커밋 전</td> <td>staged 파일 ESLint 검사, 오류 시 커밋 차단</td></tr> <tr><td>3단계</td> <td>GitHub Actions</td> <td>PR / 머지 전</td> <td>빌드, 테스트 자동 실행, 오류 시 머지 차단</td></tr> <tr><td>4단계</td> <td>Sentry</td> <td>배포 후</td> <td>프로덕션 오류 실시간 감지 및 알림</td></tr></tbody></table> <br> <h2 id="✅-2-github-actions란"><a href="#✅-2-github-actions란" class="header-anchor">#</a> ✅ 2. GitHub Actions란?</h2> <p>GitHub에서 제공하는 CI/CD 자동화 도구다.
+<code>.github/workflows/</code> 폴더 안에 <code>.yml</code> 파일을 작성하면,
+특정 이벤트(PR 오픈, 머지 등)가 발생할 때 자동으로 설정한 작업들이 실행된다.</p> <div class="language- extra-class"><pre class="language-text"><code>프로젝트/
+└── .github/
+    └── workflows/
+        └── ci.yml   ← 여기에 자동화할 작업을 정의
+</code></pre></div><br> <h2 id="✅-3-github-actions-기본-문법"><a href="#✅-3-github-actions-기본-문법" class="header-anchor">#</a> ✅ 3. GitHub Actions 기본 문법</h2> <p><code>.yml</code> 파일의 구조와 각 키워드의 의미를 이해하는 것이 핵심이다.</p> <div class="language-yaml extra-class"><pre class="language-yaml"><code><span class="token key atrule">name</span><span class="token punctuation">:</span> CI <span class="token comment"># 워크플로우 이름 (GitHub Actions 탭에 표시됨)</span>
+
+<span class="token key atrule">on</span><span class="token punctuation">:</span> <span class="token comment"># 언제 실행할지 (트리거)</span>
+  <span class="token key atrule">push</span><span class="token punctuation">:</span>
+    <span class="token key atrule">branches</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>main<span class="token punctuation">]</span> <span class="token comment"># main 브랜치에 push할 때</span>
+  <span class="token key atrule">pull_request</span><span class="token punctuation">:</span>
+    <span class="token key atrule">branches</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>main<span class="token punctuation">]</span> <span class="token comment"># main 브랜치로 PR을 열 때</span>
+
+<span class="token key atrule">jobs</span><span class="token punctuation">:</span> <span class="token comment"># 실행할 작업들</span>
+  <span class="token key atrule">build</span><span class="token punctuation">:</span> <span class="token comment"># job 이름 (자유롭게 설정)</span>
+    <span class="token key atrule">runs-on</span><span class="token punctuation">:</span> ubuntu<span class="token punctuation">-</span>latest <span class="token comment"># 어떤 환경에서 실행할지 (가상 머신)</span>
+
+    <span class="token key atrule">steps</span><span class="token punctuation">:</span> <span class="token comment"># 순서대로 실행할 단계들</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> 코드 체크아웃 <span class="token comment"># 스텝 이름</span>
+        <span class="token key atrule">uses</span><span class="token punctuation">:</span> actions/checkout@v3 <span class="token comment"># GitHub에서 제공하는 액션 사용</span>
+
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Node.js 설정
+        <span class="token key atrule">uses</span><span class="token punctuation">:</span> actions/setup<span class="token punctuation">-</span>node@v3
+        <span class="token key atrule">with</span><span class="token punctuation">:</span>
+          <span class="token key atrule">node-version</span><span class="token punctuation">:</span> <span class="token number">18</span> <span class="token comment"># Node 버전 지정</span>
+
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> 의존성 설치
+        <span class="token key atrule">run</span><span class="token punctuation">:</span> npm ci <span class="token comment"># 직접 실행할 명령어</span>
+
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> 빌드
+        <span class="token key atrule">run</span><span class="token punctuation">:</span> npm run build
+</code></pre></div><br> <h3 id="주요-키워드-정리"><a href="#주요-키워드-정리" class="header-anchor">#</a> 주요 키워드 정리</h3> <table><thead><tr><th>키워드</th> <th>설명</th></tr></thead> <tbody><tr><td><code>on</code></td> <td>워크플로우를 실행시킬 트리거 이벤트</td></tr> <tr><td><code>jobs</code></td> <td>실행할 작업 묶음 (병렬 실행 가능)</td></tr> <tr><td><code>runs-on</code></td> <td>실행 환경 (ubuntu, windows, macos)</td></tr> <tr><td><code>steps</code></td> <td>job 안에서 순서대로 실행할 단계들</td></tr> <tr><td><code>uses</code></td> <td>GitHub에서 만들어둔 액션을 가져다 씀</td></tr> <tr><td><code>run</code></td> <td>직접 실행할 쉘 명령어</td></tr> <tr><td><code>with</code></td> <td>액션에 전달할 옵션값</td></tr></tbody></table> <br> <h2 id="✅-4-실제-워크플로우-예시-eslint-빌드-테스트"><a href="#✅-4-실제-워크플로우-예시-eslint-빌드-테스트" class="header-anchor">#</a> ✅ 4. 실제 워크플로우 예시 — ESLint + 빌드 + 테스트</h2> <p>PR을 올리면 ESLint 검사 → 빌드 → 테스트가 순서대로 자동 실행되는 워크플로우다.</p> <div class="language-yaml extra-class"><pre class="language-yaml"><code><span class="token comment"># .github/workflows/ci.yml</span>
+<span class="token key atrule">name</span><span class="token punctuation">:</span> CI
+
+<span class="token key atrule">on</span><span class="token punctuation">:</span>
+  <span class="token key atrule">pull_request</span><span class="token punctuation">:</span>
+    <span class="token key atrule">branches</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>main<span class="token punctuation">]</span>
+
+<span class="token key atrule">jobs</span><span class="token punctuation">:</span>
+  <span class="token key atrule">ci</span><span class="token punctuation">:</span>
+    <span class="token key atrule">runs-on</span><span class="token punctuation">:</span> ubuntu<span class="token punctuation">-</span>latest
+
+    <span class="token key atrule">steps</span><span class="token punctuation">:</span>
+      <span class="token comment"># 1. 현재 브랜치 코드를 가상 머신에 체크아웃</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> 코드 체크아웃
+        <span class="token key atrule">uses</span><span class="token punctuation">:</span> actions/checkout@v3
+
+      <span class="token comment"># 2. Node.js 환경 세팅</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> Node.js 설정
+        <span class="token key atrule">uses</span><span class="token punctuation">:</span> actions/setup<span class="token punctuation">-</span>node@v3
+        <span class="token key atrule">with</span><span class="token punctuation">:</span>
+          <span class="token key atrule">node-version</span><span class="token punctuation">:</span> <span class="token number">18</span>
+          <span class="token key atrule">cache</span><span class="token punctuation">:</span> <span class="token string">&quot;npm&quot;</span> <span class="token comment"># npm 캐시를 재사용해 설치 속도 향상</span>
+
+      <span class="token comment"># 3. 패키지 설치</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> 의존성 설치
+        <span class="token key atrule">run</span><span class="token punctuation">:</span> npm ci
+        <span class="token comment"># npm install 대신 npm ci를 쓰는 이유:</span>
+        <span class="token comment"># package-lock.json을 기준으로 정확히 설치해 환경을 통일시킴</span>
+
+      <span class="token comment"># 4. ESLint 검사</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> ESLint 검사
+        <span class="token key atrule">run</span><span class="token punctuation">:</span> npm run lint
+        <span class="token comment"># 오류가 있으면 여기서 실패 → 이후 스텝 실행 안 됨</span>
+
+      <span class="token comment"># 5. 빌드</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> 빌드
+        <span class="token key atrule">run</span><span class="token punctuation">:</span> npm run build
+        <span class="token comment"># 실제 배포 환경과 동일하게 빌드가 되는지 미리 확인</span>
+
+      <span class="token comment"># 6. 테스트</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> 테스트
+        <span class="token key atrule">run</span><span class="token punctuation">:</span> npm test
+</code></pre></div><br> <h3 id="실행-결과"><a href="#실행-결과" class="header-anchor">#</a> 실행 결과</h3> <p>PR을 올리면 GitHub에서 아래처럼 각 단계의 결과를 보여준다.</p> <div class="language- extra-class"><pre class="language-text"><code>✅ 코드 체크아웃       (2s)
+✅ Node.js 설정        (3s)
+✅ 의존성 설치         (25s)
+❌ ESLint 검사         (4s) ← 여기서 실패하면 머지 버튼이 비활성화됨
+</code></pre></div><blockquote><p>ESLint 검사에서 실패하면 이후 빌드, 테스트는 실행되지 않는다.
+오류를 고친 후 다시 푸시하면 워크플로우가 재실행된다.</p></blockquote> <br> <h2 id="✅-5-npm-install-vs-npm-ci"><a href="#✅-5-npm-install-vs-npm-ci" class="header-anchor">#</a> ✅ 5. npm install vs npm ci</h2> <p>CI 환경에서는 <code>npm install</code> 대신 <code>npm ci</code>를 쓰는 것이 좋다.</p> <table><thead><tr><th>구분</th> <th>npm install</th> <th>npm ci</th></tr></thead> <tbody><tr><td>기준</td> <td><code>package.json</code></td> <td><code>package-lock.json</code></td></tr> <tr><td>동작</td> <td>버전 범위 내에서 최신 설치</td> <td>lock 파일 기준으로 정확히 설치</td></tr> <tr><td>속도</td> <td>느림</td> <td>빠름 (node_modules 삭제 후 재설치)</td></tr> <tr><td>사용 목적</td> <td>로컬 개발</td> <td>CI 환경 (재현 가능한 환경 보장)</td></tr></tbody></table> <blockquote><p>CI에서 <code>npm install</code>을 쓰면 팀원마다, 실행할 때마다 설치되는 버전이 미묘하게 달라질 수 있다.
+<code>npm ci</code>는 항상 동일한 환경을 보장해서 &quot;내 로컬에서는 됐는데 CI에서 안 돼요&quot; 를 방지한다.</p></blockquote> <hr> <br> <p><strong>핵심 요약:</strong></p> <ul><li><strong>CI</strong> → PR/푸시 시 자동으로 ESLint, 빌드, 테스트를 실행해 오류를 머지 전에 차단</li> <li><strong>CD</strong> → CI 통과 후 자동으로 배포까지 이어지는 흐름</li> <li><strong>GitHub Actions</strong> → <code>.yml</code> 파일로 CI/CD 워크플로우를 정의하는 도구</li> <li><strong>오류를 잡는 흐름</strong> → ESLint(실시간) → Husky(커밋 전) → GitHub Actions(머지 전) → Sentry(배포 후)</li> <li><strong>npm ci</strong> → CI 환경에서 <code>npm install</code> 대신 사용, 동일한 환경 보장</li></ul></div></article> <footer class="page-edit mt-20 border-t pt-8"><!----> <!----></footer> <div class="page-nav mt-8"><p class="inner"><span class="prev">
+      ←
+      <a href="/Blog/DevOps/eslint-husky-lint-staged.html" class="prev">
+        ESLint + Husky + lint-staged 설정
+      </a></span> <span class="next"><a href="/Blog/" class="router-link-active">
+        /
+      </a>
+      →
+    </span></p></div></div></main></div><div class="global-ui"></div></div>
+    <script src="/Blog/assets/js/app.5fec811d.js" defer></script><script src="/Blog/assets/js/9.b9cdecca.js" defer></script><script src="/Blog/assets/js/1.3e360788.js" defer></script><script src="/Blog/assets/js/26.b2026a1a.js" defer></script>
+  </body>
+</html>
