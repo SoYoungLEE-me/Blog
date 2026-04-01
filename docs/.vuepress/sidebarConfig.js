@@ -57,6 +57,11 @@ module.exports = {
       children: ["/References/muddy-web-ep1-production-release.md"],
     },
     {
+      title: "日本就活",
+      collapsable: true,
+      children: ["/Japan/logical-thinking.md"],
+    },
+    {
       title: "etc",
       collapsable: true,
       children: [""],
