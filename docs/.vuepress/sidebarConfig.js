@@ -54,7 +54,10 @@ module.exports = {
     {
       title: "References",
       collapsable: true,
-      children: ["/References/muddy-web-ep1-production-release.md"],
+      children: [
+        "/References/muddy-web-ep1-production-release.md",
+        "/References/muddy-web-ep3-webview-legacy-browser.md",
+      ],
     },
     {
       title: "日本就活",
