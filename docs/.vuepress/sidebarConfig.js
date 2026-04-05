@@ -36,7 +36,11 @@ module.exports = {
     {
       title: "TypeScript",
       collapsable: true,
-      children: [""],
+      children: [
+        "/TypeScript/primitive-types.md",
+        "/TypeScript/interface-type.md",
+        "/TypeScript/type-safety.md",
+      ],
     },
     {
       title: "DevOps",
