@@ -40,6 +40,8 @@ module.exports = {
         "/TypeScript/primitive-types.md",
         "/TypeScript/interface-type.md",
         "/TypeScript/type-safety.md",
+        "/TypeScript/enum.md",
+        "/TypeScript/api-types.md",
       ],
     },
     {

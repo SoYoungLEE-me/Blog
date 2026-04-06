@@ -1,6 +1,6 @@
 ---
 title: TypeScript 타입 안전성
-date: 2026-04-06
+date: 2026-04-05
 tags:
   - TypeScript
   - 타입안전성
