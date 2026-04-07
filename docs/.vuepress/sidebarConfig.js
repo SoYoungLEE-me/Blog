@@ -68,7 +68,7 @@ module.exports = {
     {
       title: "日本就活",
       collapsable: true,
-      children: ["/Japan/logical-thinking.md"],
+      children: ["/Japan/logical-thinking.md", "/Japan/advanced-thinking.md"],
     },
     {
       title: "etc",
