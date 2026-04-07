@@ -219,3 +219,16 @@ MECE と 5W1H を使って課題を細かく分解していく。
 - **So What? / Why So?** → 事実と結論の間を検証する問いかけ
 - **5W1H** → 課題を漏れなく把握するフレームワーク
 - **課題の解像度を上げる** → 分解と深掘りで「本当の課題」を定義する
+
+<br>
+<br>
+## 参考資料
+
+以下の記事や資料を参考にしながら、自分なりにまとめた内容を記録している。
+
+- [ロジカルシンキングとは？鍛え方・MECE・ピラミッド構造を具体例で解説【2026 年版】](https://renue.co.jp/posts/logical-thinking-mece-pyramid-structure-training-guide-2026) — 株式会社 renue
+- [ロジカルシンキングとは？定義・必要性・基本的な手法「MECE（ミーシー）」について解説](https://asobu-training.com/column/1286/) — あそぶ社員研修
+- [MECE（ミーシー）とは？フレームワークやビジネスでの活用例を紹介](https://www.kaonavi.jp/dictionary/mece/) — カオナビ人事用語集
+- [ピラミッドストラクチャーとは？作り方や活用の具体例を解説](https://asobu-training.com/column/2716/) — あそぶ社員研修
+
+<br>

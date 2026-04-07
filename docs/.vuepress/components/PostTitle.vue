@@ -32,26 +32,6 @@
         </span>
       </div>
     </div>
-
-    <!-- 번역 버튼 -->
-    <div class="flex items-center justify-end gap-2 mt-4 mb-2">
-      <span class="text-slate-400 text-xs">🌐</span>
-      <a
-        :href="`https://translate.google.com/translate?sl=ko&tl=ja&u=${currentUrl}`"
-        target="_blank"
-        class="text-xs text-slate-400 hover:text-orange-500 transition-colors"
-      >
-        日本語
-      </a>
-      <span class="text-slate-200">|</span>
-      <a
-        :href="`https://translate.google.com/translate?sl=ko&tl=en&u=${currentUrl}`"
-        target="_blank"
-        class="text-xs text-slate-400 hover:text-orange-500 transition-colors"
-      >
-        English
-      </a>
-    </div>
   </header>
 </template>
 
