@@ -38,6 +38,7 @@ module.exports = {
       collapsable: true,
       children: [
         "/TypeScript/primitive-types.md",
+        "/TypeScript/object-array-tuple.md",
         "/TypeScript/interface-type.md",
         "/TypeScript/type-safety.md",
         "/TypeScript/enum.md",
