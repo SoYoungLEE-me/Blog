@@ -1,46 +1,61 @@
 ---
 title: TypeScript Enum 정리
-date: 2026-04-06
+date: 2026-10-14
 tags:
   - TypeScript
   - Enum
 ---
 
-## Enum이란?
+## **Enum이란?**
 
 Enum(열거형)은 관련된 상수값들을 하나의 이름으로 묶어서 관리하는 TypeScript 고유 문법이다.
 
-예를 들어 주문 상태를 관리한다고 하면, 보통 이렇게 문자열로 관리하게 된다.
+예를 들어 주문 상태를 관리한다고 하면, 보통 이렇게 문자열로 관리할 수 있다.
 
 ```typescript
-// ❌ 문자열로 상태를 관리하면 생기는 문제
-const status = "pending";
+// 문자열로 상태를 관리하는 경우
+let status: string = "pending";
 
-if (status === "pendding") {
-  // 오타가 나도 컴파일 에러가 없음
-  // ...
-}
+status = "completed"; // 정상
+status = "pendding"; // 오타가 있어도 오류가 발생하지 않음
 ```
 
-문자열은 오타가 나도 TypeScript가 잡아주지 못하고,
-어떤 값이 유효한 값인지 코드만 봐서는 알기 어렵다.
-Enum을 쓰면 이 문제를 해결할 수 있다.
+일반적인 `string` 타입은 어떤 문자열이든 허용하기 때문에, 개발자가 의도하지 않은 값이나 오타를 입력해도 TypeScript가 오류를 감지하지 못한다.
+
+또한 주문 상태로 어떤 값들이 사용되는지 파악하기 어렵고, 여러 곳에서 동일한 문자열을 직접 작성해야 한다는 문제도 있다.
+
+<br>
+
+### **Enum을 사용하면?**
 
 ```typescript
-// Enum으로 관리하면
 enum OrderStatus {
   Pending = "pending",
   InProgress = "in_progress",
   Completed = "completed",
 }
 
-const status = OrderStatus.Pending;
+let status: OrderStatus = OrderStatus.Pending;
 
-if (status === OrderStatus.Pendding) {
-  // 오타 → 컴파일 에러로 즉시 감지
-  // ...
-}
+status = OrderStatus.Completed; // 정상
+status = OrderStatus.Pendding; // Error: 존재하지 않는 멤버
+status = "hello"; // Error: 허용되지 않은 값
 ```
+
+Enum을 사용하면 **허용되는 상태값을 미리 정의하고, 해당 값들만 사용하도록 제한할 수 있다.**
+
+또한 `OrderStatus.Pending`처럼 작성하기 때문에 단순히 `"pending"`이라는 문자열을 사용하는 것보다 해당 값의 의미와 소속을 명확하게 표현할 수 있다.
+
+<br>
+
+즉, Enum을 사용하면 다음과 같은 장점이 있다.
+
+- **타입 안전성:** 정의되지 않은 상태값의 사용을 방지한다.
+- **가독성:** 값이 어떤 상태를 의미하는지 쉽게 파악할 수 있다.
+- **재사용성:** 동일한 상수를 여러 곳에서 일관되게 사용할 수 있다.
+- **유지보수성:** 관련된 상태값을 한 곳에서 관리할 수 있다.
+
+다만 문자열 리터럴 유니언 타입으로도 허용되는 값을 제한할 수 있으므로, 이러한 장점이 Enum에만 해당하는 것은 아니다.
 
 <br>
 <br>
@@ -100,11 +115,53 @@ console.log(OrderStatus.Completed); // "COMPLETED"
 
 <br>
 
-### const Enum
+### ❗**일반 Enum의 한계 — 런타임 코드와 트리 셰이킹**
 
-`const` 키워드를 붙이면 컴파일 시 Enum 코드가 사라지고
-**실제 값으로 인라인 치환**된다.
-불필요한 코드가 번들에 포함되지 않아 성능상 이점이 있다.
+Enum은 TypeScript 고유 문법으로, 일반적인 Enum은 JavaScript로 컴파일할 때 객체를 생성하는 코드로 변환된다.
+
+```typescript
+enum Direction {
+  Up = "UP",
+  Down = "DOWN",
+}
+
+const move = Direction.Up;
+```
+
+위 코드를 JavaScript로 컴파일하면 다음과 같은 코드가 생성된다.
+
+```javascript
+var Direction;
+
+(function (Direction) {
+  Direction["Up"] = "UP";
+  Direction["Down"] = "DOWN";
+})(Direction || (Direction = {}));
+
+const move = Direction.Up;
+```
+
+단순히 문자열 상수를 사용하기 위해서도 별도의 객체 생성 코드가 필요한 것이다.
+
+<br>
+
+여기서 알아두어야 할 개념이 **트리 셰이킹(Tree Shaking)** 이다.
+
+트리 셰이킹은 번들링 과정에서 사용하지 않는 코드를 제거하여 최종 번들 크기를 줄이는 최적화 기법이다.
+
+일반 Enum은 객체 초기화 코드가 생성되기 때문에, 번들러에 따라 사용하지 않는 Enum을 제거하기 어려울 수 있다.
+
+따라서 Enum이 많은 대규모 프로젝트에서는 불필요한 런타임 코드가 번들 크기에 영향을 줄 가능성이 있다.
+
+다만 일반 Enum이 항상 트리 셰이킹되지 않는 것은 아니며, 실제 결과는 컴파일러와 번들러의 설정에 따라 달라진다.
+
+<br>
+
+### **const Enum — 런타임 코드 생성을 줄이는 방법**
+
+이러한 런타임 코드 생성 비용을 줄이기 위해 `const enum`을 사용할 수 있다.
+
+`const` 키워드를 붙이면 기본적인 TypeScript 컴파일 설정에서 Enum 선언이 제거되고, 사용하는 위치에 실제 값이 인라인으로 치환된다.
 
 ```typescript
 const enum Direction {
@@ -113,10 +170,30 @@ const enum Direction {
 }
 
 const move = Direction.Up;
-
-// 컴파일 후 JavaScript
-// const move = "UP"; ← Enum 코드 없이 값으로 바로 치환됨
 ```
+
+**컴파일된 JavaScript 코드 예시**
+
+```javascript
+const move = "UP";
+```
+
+일반 Enum과 달리 별도의 Enum 객체를 생성하지 않는다.
+
+따라서 불필요한 런타임 코드와 객체 속성 접근을 줄일 수 있다.
+
+<br>
+
+하지만 `const enum`에도 주의할 점이 있다.
+
+- 컴파일 설정에 따라 인라인 치환 동작이 달라질 수 있다.
+- `preserveConstEnums` 설정을 사용하면 Enum 객체 코드가 유지될 수 있다.
+- 외부 라이브러리에 공개하거나 일부 빌드 도구와 함께 사용할 때 호환성 문제가 발생할 수 있다.
+- 런타임에 Enum 객체 자체가 필요한 경우에는 적합하지 않다.
+
+<br>
+
+따라서 **const enum이 일반 Enum보다 무조건 좋은 것은 아니며**, 프로젝트의 빌드 환경과 사용 목적에 따라 선택해야 한다.
 
 <br>
 <br>
@@ -212,8 +289,7 @@ console.log(canEdit(UserRole.Viewer)); // false
 
 ### switch문과 함께 사용
 
-Enum과 switch문을 함께 쓰면 모든 케이스를 빠짐없이 처리하고 있는지
-TypeScript가 확인해준다.
+Enum과 switch문을 함께 사용하고, never 타입을 활용하면 모든 케이스가 빠짐없이 처리되었는지 TypeScript가 확인하도록 할 수 있다
 
 ```typescript
 enum PaymentMethod {
@@ -259,14 +335,14 @@ enum Direction {
 type Direction = "UP" | "DOWN" | "LEFT" | "RIGHT";
 ```
 
-| 구분             | Enum                           | 유니언 타입                   |
-| ---------------- | ------------------------------ | ----------------------------- |
-| 코드 가독성      | 이름으로 의미가 명확함         | 값 자체가 보임                |
-| 자동완성         | ✅                             | ✅                            |
-| 번들 크기        | 일반 Enum은 코드 생성됨        | 타입만이라 런타임 코드 없음   |
-| 역방향 매핑      | ✅ (숫자 Enum만)               | ❌                            |
-| 확장성           | 나중에 값 추가가 명확함        | 추가 시 모든 곳을 확인해야 함 |
-| 주로 쓰이는 경우 | 상태, 권한 등 명확한 상수 집합 | 간단한 타입 제한              |
+| 구분             | Enum                                            | 유니언 타입                       |
+| ---------------- | ----------------------------------------------- | --------------------------------- |
+| 코드 가독성      | 이름으로 의미가 명확함                          | 값 자체가 보임                    |
+| 자동완성         | ✅                                              | ✅                                |
+| 번들 크기        | 일반 Enum은 코드 생성됨                         | 타입만이라 런타임 코드 없음       |
+| 트리 셰이킹      | 일반 Enum은 번들러에 따라 제거가 어려울 수 있음 | 타입 선언 자체는 컴파일 시 제거됨 |
+| 역방향 매핑      | ✅ (숫자 Enum만)                                | ❌                                |
+| 주로 쓰이는 경우 | 상태, 권한 등 명확한 상수 집합                  | 간단한 타입 제한                  |
 
 > 상태나 권한처럼 **의미 있는 이름이 중요한 상수 집합**이라면 Enum,
 > 단순히 타입을 제한하는 용도라면 유니언 타입이 더 가볍고 간결하다.
@@ -291,14 +367,8 @@ Enum은 그런 상황에서 **"이 값들의 집합은 여기서 관리한다"**
 
 처음엔 번거로워 보여도, 규모가 커질수록 Enum의 가치를 느끼게 되는 것 같다.
 
----
-
 <br>
 
-**핵심 요약:**
+끝-!
 
-- **Enum** → 관련 상수를 하나로 묶어 관리, 오타를 컴파일 타임에 감지
-- **숫자 Enum** → 기본값 0부터 자동 할당, 역방향 매핑 가능
-- **문자열 Enum** → 값이 명확히 보여 디버깅 쉬움, 실무에서 더 많이 사용
-- **const Enum** → 컴파일 시 값으로 치환, 번들 크기 최적화
-- **Enum vs 유니언 타입** → 의미 있는 상수 집합엔 Enum, 단순 타입 제한엔 유니언 타입
+<br>

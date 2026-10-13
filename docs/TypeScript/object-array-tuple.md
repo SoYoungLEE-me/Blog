@@ -277,7 +277,9 @@ const product: [string, number, boolean] = [2000000, "MacBook", true];
 
 <br>
 같은 값이 들어 있어도 순서가 달라지면 오류가 발생한다.
+
 <br>
+
 다만 TypeScript의 튜플이 런타임에서 완전히 고정된 배열이 되는 것은 아니다.
 
 일부 배열 메서드를 통해 요소를 추가할 수 있기 때문에, 튜플의 길이까지 변경하지 못하도록 제한하고 싶다면 `readonly`를 사용할 수 있다.
@@ -341,6 +343,7 @@ const product: [string, number, boolean] = ["MacBook", 2000000, true];
 튜플은 순서가 명확하고 간단한 데이터를 표현할 때 유용하다.
 
 반면 객체는 속성 이름을 통해 데이터의 의미를 명확하게 나타낼 수 있다.
+
 <br>
 
 ```typescript
