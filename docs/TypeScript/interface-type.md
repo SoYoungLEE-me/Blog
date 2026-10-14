@@ -19,6 +19,7 @@ tags:
 특히 규모가 커지는 프로젝트에서 동일한 타입을 반복해서 작성하지 않고 재사용할 수 있다는 점이 중요하다.
 
 <br>
+<br>
 
 ## **✅ 1. type과 interface를 사용하는 이유**
 
@@ -137,12 +138,13 @@ type User = {
 특히 여러 컴포넌트에서 동일한 API 응답 데이터를 사용하는 경우, 타입을 각각 정의하는 것보다 공통 타입을 만들어 사용하는 편이 훨씬 관리하기 편리할 것 같다.
 
 <br>
+<br>
 
 ## **✅ 2. type (타입 별칭)**
 
 `type`은 기존 타입이나 타입 표현식에 새로운 이름을 붙이는 문법이다.
 
-정확한 명칭은 **타입 별칭(Type Alias)**이다.
+정확한 명칭은 **타입 별칭(Type Alias)** 이다.
 
 객체뿐만 아니라 원시 타입, 유니언 타입, 튜플 타입, 함수 타입 등 다양한 타입을 정의할 수 있다.
 
@@ -257,14 +259,15 @@ console.log(add(5, 3)); // 8
 이처럼 함수의 형태를 별도로 정의하면 여러 함수에서 재사용할 수 있다.
 
 <br>
-
-## **✅ 3. type 확장 — 인터섹션 타입 (&)**
-
-`type`은 `&` 연산자를 사용하여 여러 타입을 결합할 수 있다.
-
-이를 **인터섹션 타입(Intersection Type)**이라고 한다.
-
 <br>
+
+## **✅ 3. 교차 타입(Intersection Type) — 타입의 결합과 확장**
+
+교차 타입은 `&` 연산자를 사용하여 **여러 타입의 조건을 동시에 만족하는 새로운 타입** 을 만드는 방법이다.
+
+인터섹션 타입(Intersection Type)이라고도 부르며, 객체 타입을 결합하거나 기존 타입의 구조를 재사용할 때 주로 사용한다.
+
+예를 들어 기존 `Person` 타입에 학생 정보를 추가해야 한다고 가정해 보자.
 
 ```typescript
 type Person = {
@@ -291,6 +294,8 @@ const student: Student = {
 
 ### **여러 타입을 조합하기**
 
+교차 타입은 하나의 타입에 속성을 추가하는 것뿐 아니라 여러 타입을 조합하는 데도 사용할 수 있다.
+
 ```typescript
 type User = {
   id: number;
@@ -316,9 +321,11 @@ const profile: UserProfile = {
 };
 ```
 
+이처럼 서로 다른 역할을 가진 타입을 분리해 두면 필요한 구조를 조합하여 재사용할 수 있다.
+
 <br>
 
-### **인터섹션 타입 사용 시 주의점**
+### **교차 타입 사용 시 주의점 — 속성 충돌**
 
 `&`는 단순히 기존 속성을 덮어쓰는 연산자가 아니다.
 
@@ -346,8 +353,245 @@ const value: C = {
 };
 ```
 
-따라서 인터섹션 타입을 사용할 때는 같은 이름의 속성이 서로 충돌하지 않는지 주의해야 한다.
+따라서 교차 타입을 사용할 때는 같은 이름의 속성이 서로 충돌하지 않는지 주의해야 한다.
 
+<br>
+
+### **교차 타입과 타입 확장의 차이**
+
+교차 타입과 타입 확장은 비슷하게 느껴질 수 있지만 엄밀히 말하면 서로 다른 개념이다.
+
+- **타입 확장(Extension):** 기존 타입의 구조를 재사용하여 새로운 타입을 정의하는 설계 방식
+- **교차 타입(Intersection):** `&` 연산자로 여러 타입의 조건을 동시에 만족하는 타입을 만드는 방법
+
+예를 들어 다음과 같이 작성할 수 있다.
+
+```typescript
+type Product = {
+  id: number;
+  name: string;
+  price: number;
+};
+
+// 교차 타입을 이용한 타입 확장
+type SaleProduct = Product & {
+  discount: number;
+};
+```
+
+`SaleProduct`는 `Product`의 모든 속성과 `discount` 속성을 반드시 가져야 한다.
+
+반면 `interface`에서는 `extends`를 사용하여 타입을 확장할 수 있다.
+
+```typescript
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+}
+
+interface SaleProduct extends Product {
+  discount: number;
+}
+```
+
+두 코드 모두 비슷한 객체 구조를 표현하지만, 동작 원리가 완전히 동일한 것은 아니다.
+
+특히 기존 속성의 타입이 충돌할 때 `extends`는 호환되지 않는 속성의 재정의를 오류로 감지하지만, 교차 타입은 두 타입의 조건을 결합하면서 `never`가 발생할 수 있다.
+
+즉, **교차 타입은 타입을 확장하는 데 사용할 수 있는 방법 중 하나** 라고 이해하면 된다.
+
+<br>
+
+### **교차 타입은 객체에서만 사용할 수 있을까?**
+
+앞에서는 객체의 속성을 결합하는 방식으로 살펴보았지만, 교차 타입은 객체 타입에서만 사용할 수 있는 것은 아니다.
+
+원시 타입이나 유니언 타입에도 적용할 수 있다.
+
+<br>
+
+**1. 유니언 타입과 교차 타입의 조합**
+
+```typescript
+type A = "red" | "blue";
+type B = "blue" | "green";
+
+type C = A & B; // "blue"
+```
+
+`A`는 `"red"` 또는 `"blue"`를 허용하고, `B`는 `"blue"` 또는 `"green"`을 허용한다.
+
+교차 타입은 두 타입의 조건을 모두 만족해야 하므로, 공통으로 허용되는 `"blue"`만 남는다.
+
+```typescript
+const color1: C = "blue"; // 정상
+const color2: C = "red"; // Error
+```
+
+즉, 교차 타입은 단순히 타입들을 합치는 것이 아니라 **모든 타입의 조건을 동시에 만족하는 값의 범위를 표현한다.**
+
+<br>
+
+**2. 원시 타입의 교차**
+
+서로 다른 원시 타입을 교차하면 어떻게 될까?
+
+```typescript
+type A = string;
+type B = number;
+
+type C = A & B; // never
+```
+
+`string`과 `number`를 동시에 만족하는 값은 존재하지 않는다.
+
+따라서 `C`는 `never` 타입이 된다.
+
+```typescript
+const value: C = "hello"; // Error
+const value2: C = 123; // Error
+```
+
+`never`는 어떤 값도 할당할 수 없는 타입이므로 실제 값을 지정할 수 없다.
+
+<br>
+
+### **실무에서 주의할 점 — 일반 상품과 할인 상품**
+
+교차 타입을 사용할 때는 데이터 구조뿐만 아니라 **각 타입이 실제로 어떤 상태를 의미하는지** 생각해야 한다.
+
+예를 들어 쇼핑몰 API에서 일반 상품과 할인 상품을 관리한다고 가정해 보자.
+
+<br>
+
+**1. 선택적 속성으로 처리하는 경우**
+
+```typescript
+type Product = {
+  id: number;
+  name: string;
+  price: number;
+  discount?: number;
+};
+```
+
+`discount?`를 사용하면 할인 여부와 관계없이 모든 상품을 하나의 타입으로 관리할 수 있다.
+
+하지만 `discount`가 없는 상품도 허용하기 때문에 할인 상품인지 아닌지를 타입만으로 명확하게 구분하기 어렵다.
+
+```typescript
+function getDiscountPrice(product: Product): number {
+  return product.price * (1 - product.discount / 100);
+  // Error: discount가 undefined일 수 있음
+}
+```
+
+따라서 할인가를 계산하거나 할인율을 화면에 표시할 때마다 값이 존재하는지 확인해야 한다.
+
+또한 할인 상품이어야 하는 데이터에 `discount`가 누락되어도 타입 오류가 발생하지 않는다.
+
+<br>
+
+**2. 교차 타입으로 할인 상품을 분리하는 경우**
+
+```typescript
+type Product = {
+  id: number;
+  name: string;
+  price: number;
+};
+
+type SaleProduct = Product & {
+  discount: number;
+};
+```
+
+이렇게 정의하면 일반 상품과 할인 상품의 구조를 구분할 수 있다.
+
+```typescript
+const saleProduct: SaleProduct = {
+  id: 1,
+  name: "Laptop",
+  price: 1000,
+  discount: 20,
+};
+```
+
+`SaleProduct`에서는 `discount`가 필수 속성이므로 할인가를 계산할 때 별도의 `undefined` 검사가 필요하지 않다.
+
+```typescript
+function getDiscountPrice(product: SaleProduct): number {
+  return product.price * (1 - product.discount / 100);
+}
+```
+
+하지만 교차 타입으로 분리했다고 해서 모든 문제가 해결되는 것은 아니다.
+
+<br>
+
+**3. API에서 두 상품을 함께 반환한다면?**
+
+```typescript
+type Product = {
+  id: number;
+  name: string;
+  price: number;
+};
+
+type SaleProduct = Product & {
+  discount: number;
+};
+
+const products: (Product | SaleProduct)[] = [
+  { id: 1, name: "Laptop", price: 1000 },
+  { id: 2, name: "Mouse", price: 50, discount: 10 },
+];
+```
+
+API에서 일반 상품과 할인 상품을 함께 반환한다면 두 타입을 유니언으로 관리할 수 있다.
+
+이때 일반 상품에는 `discount` 속성이 정의되어 있지 않기 때문에 바로 접근할 수 없다.
+
+```typescript
+products.forEach((product) => {
+  console.log(product.discount); // Error
+});
+```
+
+따라서 할인 정보를 사용하기 전에 타입을 확인해야 한다.
+
+```typescript
+products.forEach((product) => {
+  if ("discount" in product) {
+    console.log(`할인율: ${product.discount}%`);
+  }
+});
+```
+
+즉, **교차 타입으로 구조를 분리하면 각 타입의 필수 속성을 명확하게 표현할 수 있지만, 여러 타입이 함께 사용되는 경우에는 타입을 구분하는 과정이 필요할 수 있다.**
+
+여기서 중요한 점은 타입을 구분하는 과정이 교차 타입 자체의 문제는 아니라는 것이다.
+
+일반 상품과 할인 상품처럼 서로 다른 데이터 구조를 함께 처리하기 때문에 필요한 과정이다.
+
+또한 `SaleProduct`는 `Product`의 모든 조건을 만족하므로 두 타입이 완전히 배타적인 관계는 아니다.
+
+실제로 일반 상품과 할인 상품을 명확히 구분해야 하는 상황이라면 `type: "regular"` 또는 `type: "sale"`과 같은 판별 속성을 추가하는 방법도 고려할 수 있다.
+
+<br>
+
+### **교차 타입을 사용할 때 기억할 점**
+
+- 교차 타입은 여러 타입의 조건을 동시에 만족하는 타입을 만든다.
+- 객체뿐 아니라 원시 타입과 유니언 타입에도 적용할 수 있다.
+- 서로 충돌하는 타입을 교차하면 `never`가 발생할 수 있다.
+- 기존 타입의 구조를 재사용하면서 필수 속성을 추가할 때 유용하다.
+- 여러 타입을 유니언으로 함께 사용하는 경우에는 타입을 구분하는 과정이 필요할 수 있다.
+
+따라서 교차 타입을 사용할 때는 단순히 속성을 합치는 것뿐만 아니라 **실제 데이터의 의미와 사용 목적에 맞는 타입 구조인지** 함께 고려해야 한다.
+
+<br>
 <br>
 
 ## **✅ 4. 유니언(|)과 인터섹션(&)의 차이**
@@ -413,8 +657,8 @@ const user: User = {
 
 <br>
 
-| 구분      | 유니언 (`                | `)                      | 인터섹션 (`&`) |
-| --------- | ------------------------ | ----------------------- | -------------- |
+| 구분      | 유니언 (`\|`)            | 인터섹션 (`&`)          |
+| --------- | ------------------------ | ----------------------- |
 | 의미      | 여러 타입 중 하나를 만족 | 모든 타입의 조건을 만족 |
 | 주요 용도 | 다양한 값 또는 상태 표현 | 여러 타입의 조합        |
 | 예시      | `string \| number`       | `User & Contact`        |
@@ -427,6 +671,7 @@ const user: User = {
 
 따라서 유니언은 **여러 타입 중 하나의 조건을 만족하면 된다**고 이해하는 것이 정확하다.
 
+<br>
 <br>
 
 ## **✅ 5. interface (인터페이스)**
@@ -558,6 +803,7 @@ const add: Add = (a, b) => a + b;
 
 따라서 interface는 단순히 일반적인 속성을 나열하는 문법만은 아니다.
 
+<br>
 <br>
 
 ## **✅ 6. interface 확장 — extends**
@@ -755,6 +1001,7 @@ interface Admin extends Person {
 `"admin"`은 `string` 타입에 포함되는 문자열 리터럴 타입이므로 기존 조건을 만족한다.
 
 <br>
+<br>
 
 ## **✅ 7. extends와 &는 완전히 같을까?**
 
@@ -809,12 +1056,13 @@ const value: C = {
 **extends는 확장 과정에서 타입 호환성을 검사하고, 인터섹션은 조건을 결합하기 때문에 결과가 다를 수 있다.**
 
 <br>
+<br>
 
 ## **✅ 8. interface의 선언 병합 (Declaration Merging)**
 
 `interface`의 특징 중 하나는 같은 이름으로 여러 번 선언하면 선언이 합쳐진다는 것이다.
 
-이를 **선언 병합(Declaration Merging)**이라고 한다.
+이를 **선언 병합(Declaration Merging)** 이라고 한다.
 
 <br>
 
@@ -896,6 +1144,7 @@ interface Person {
 선언 병합은 편리하지만 의도하지 않은 타입 확장이 발생할 수도 있으므로 일반적인 프로젝트 코드에서는 필요한 상황에 맞게 사용하는 것이 좋다.
 
 <br>
+<br>
 
 ## **✅ 9. type과 interface의 공통점 및 차이점**
 
@@ -968,8 +1217,9 @@ interface Person {
 
 이와 같은 계산된 속성 이름은 인터페이스에서도 사용할 수 있다.
 
-따라서 **Mapped Type을 직접 정의할 수 있다는 점이 type의 특징**이라고 이해하는 것이 정확하다.
+따라서 **Mapped Type을 직접 정의할 수 있다는 점이 type의 특징** 이라고 이해하는 것이 정확하다.
 
+<br>
 <br>
 
 ## **✅ 10. 중첩 객체 타입 정의**
@@ -1060,6 +1310,7 @@ const order: Order = {
 이처럼 각 데이터 구조를 별도로 정의하면 복잡한 데이터도 관리하기 쉬워진다.
 
 <br>
+<br>
 
 ## **✅ 11. type과 interface 함께 사용하기**
 
@@ -1114,12 +1365,13 @@ const admin: AdminUser = {
 하지만 유니언 타입이나 원시 타입처럼 인터페이스의 확장 조건을 만족하지 않는 타입은 `extends`에 사용할 수 없다.
 
 <br>
+<br>
 
 ## **✅ 12. 구조적 타입 시스템 (Structural Typing)**
 
 TypeScript를 공부하면서 알아두면 좋은 개념이 하나 더 있다.
 
-바로 **구조적 타입 시스템(Structural Type System)**이다.
+바로 **구조적 타입 시스템(Structural Type System)** 이다.
 
 TypeScript는 타입의 이름보다 실제 구조가 호환되는지를 중요하게 판단한다.
 
@@ -1189,6 +1441,7 @@ const person: Person = {
 따라서 TypeScript는 단순히 타입 이름만 비교하는 것이 아니라 객체의 구조와 할당 상황에 따라 타입을 검사한다는 점을 알아두어야겠다.
 
 <br>
+<br>
 
 ## **✅ 13. interface와 클래스 — implements**
 
@@ -1255,6 +1508,7 @@ class Dog implements Animal {
 
 따라서 `implements`는 `interface`에만 사용할 수 있는 기능은 아니다.
 
+<br>
 <br>
 
 ## **✅ 14. type과 interface는 런타임에 남아 있을까?**
@@ -1342,6 +1596,7 @@ TypeScript에서는 `user.id`를 숫자로 취급하지만 실제 값은 여전�
 따라서 **타입 단언과 데이터 검증은 서로 다른 개념**이라는 점을 기억해야 한다.
 
 <br>
+<br>
 
 ## **✅ 15. 실무에서는 type과 interface 중 무엇을 사용할까?**
 
@@ -1385,16 +1640,18 @@ TypeScript에서는 `user.id`를 숫자로 취급하지만 실제 값은 여전�
 개인적으로는 앞으로 프로젝트를 진행하면서 객체의 구조를 정의할 때는 `interface`를 우선 고려하고, 유니언이나 튜플, 여러 타입의 조합이 필요하다면 `type`을 사용해 보려고 한다.
 
 <br>
+<br>
 
 ## **✅ 16. 오늘 배운 내용 정리**
 
 이번에는 TypeScript에서 타입을 정의하고 재사용할 때 사용하는 `type`과 `interface`에 대해 공부했다.
+추가하고 추가하다 보니까 내용이 의도치 않게 엄청나게 길어졌다ㅏ..
 
 <br>
 
 처음에는 두 문법이 비슷해서 굳이 구분해서 사용해야 하는 이유가 궁금했다.
 
-하지만 공부하면서 두 문법의 중요한 역할은 **타입을 반복해서 작성하지 않고 일관되게 관리할 수 있도록 도와준다는 것**이라는 생각이 들었다.
+하지만 공부하면서 두 문법의 중요한 역할은 **타입을 반복해서 작성하지 않고 일관되게 관리할 수 있도록 도와준다는 것** 이라는 생각이 들었다.
 
 특히 여러 객체와 함수에서 동일한 타입을 사용하는 경우 공통 타입을 정의해 두면 코드의 가독성과 유지보수성을 높일 수 있다는 점이 인상적이었다.
 
@@ -1419,3 +1676,5 @@ TypeScript에서는 `user.id`를 숫자로 취급하지만 실제 값은 여전�
 <br>
 
 끝-!
+
+<br>
