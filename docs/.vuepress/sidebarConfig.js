@@ -43,6 +43,8 @@ module.exports = {
         "/TypeScript/advanced-types.md",
         "/TypeScript/enum.md",
         "/TypeScript/type-safety.md",
+        "/TypeScript/union-type-and-narrowing.md",
+        "/TypeScript/discriminated-union-and-never.md",
         "/TypeScript/api-types.md",
       ],
     },
